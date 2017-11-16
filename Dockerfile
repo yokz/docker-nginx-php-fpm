@@ -35,7 +35,6 @@ RUN echo "deb http://nginx.org/packages/debian/ jessie nginx" >> /etc/apt/source
         bcmath \
         opcache \
         tidy \
-        icu \
     && docker-php-source delete \
     && mkdir /etc/nginx/sites-enabled
 
