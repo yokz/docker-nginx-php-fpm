@@ -18,6 +18,7 @@ RUN echo "deb http://nginx.org/packages/debian/ jessie nginx" >> /etc/apt/source
     libxslt-dev \
     libffi-dev \
     libicu-dev \
+    libtidy-dev \
     supervisor \
     nginx \
     && docker-php-ext-install \
