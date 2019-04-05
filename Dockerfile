@@ -1,10 +1,11 @@
-FROM php:7.1-fpm
+FROM php:7.3-fpm
 
-ENV PHPREDIS_VERSION 3.1.4
+ENV PHPREDIS_VERSION 4.3.0
 
-RUN echo "deb http://nginx.org/packages/debian/ jessie nginx" >> /etc/apt/sources.list \
-	&& echo "deb-src http://nginx.org/packages/debian/ jessie nginx" >> /etc/apt/sources.list \
-	&& curl http://nginx.org/keys/nginx_signing.key | apt-key add - \
+RUN apt-get update && apt-get install -y curl gnupg2 ca-certificates lsb-release \
+    && echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \
+	    | tee /etc/apt/sources.list.d/nginx.list \
+	&& curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add - \
 	&& apt-get update && apt-get install -y --no-install-recommends \
 	openssh-client \
     wget \
@@ -14,17 +15,17 @@ RUN echo "deb http://nginx.org/packages/debian/ jessie nginx" >> /etc/apt/source
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
-    libpng12-dev \
+    libpng-dev \
     libxslt-dev \
     libffi-dev \
     libicu-dev \
     libtidy-dev \
+    libzip-dev \
     supervisor \
     nginx \
     && docker-php-ext-install \
         pdo_mysql \
         mysqli \
-        mcrypt \
         gd \
         exif \
         intl \
